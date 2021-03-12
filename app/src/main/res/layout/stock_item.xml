@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:minHeight="72dp"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/logo_iv"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_centerVertical="true"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_baseline_star_24" />
+
+    <TextView
+        android:id="@+id/ticker_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/logo_iv"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:text="YNDX" />
+
+    <ImageView
+        android:id="@+id/add_favourite_star_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ticker_tv"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/ticker_tv"
+        android:src="@drawable/ic_baseline_star_border_24" />
+
+    <TextView
+        android:id="@+id/company_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ticker_tv"
+        android:layout_alignStart="@+id/ticker_tv"
+        android:layout_toEndOf="@+id/logo_iv"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        tools:text="Yandex, LLC" />
+
+    <TextView
+        android:id="@+id/current_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="9sp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:text="4 764,6 ₽" />
+
+    <TextView
+        android:id="@+id/day_delta_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_price_tv"
+        android:layout_alignEnd="@id/current_price_tv"
+        android:textColor="#24B25D"
+        android:textSize="12sp"
+        tools:text="+55 ₽ (1,15%)" />
+
+</RelativeLayout>
