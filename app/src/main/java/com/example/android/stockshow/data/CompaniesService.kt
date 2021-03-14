@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface CompaniesService {
     @GET("justadlet/testing-API/master/api/stockProfiles.json")
-    fun getCompany(): Observable<CompanyProfile>
+    fun getCompanies(): Observable<List<CompanyProfile>>
 }

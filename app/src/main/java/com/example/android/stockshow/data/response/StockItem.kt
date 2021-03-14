@@ -1,6 +1,6 @@
 package com.example.android.stockshow.data.response
 
-data class Stock(
+data class StockItem(
     val name: String,
     val logo: String,
     val ticker: String,

@@ -1,8 +1,7 @@
-package com.example.android.stockshow.ui.favourite
+package com.example.android.stockshow.ui.stocks
 
 import android.annotation.SuppressLint
-import android.graphics.Color.GREEN
-import android.graphics.Color.RED
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,9 +12,7 @@ import com.example.android.stockshow.data.response.StockItem
 import com.example.android.stockshow.databinding.StockItemBinding
 import kotlin.math.abs
 
-
-class FavouriteAdapter() :
-    ListAdapter<StockItem, FavouriteAdapter.StockViewHolder>(DiffCallback) {
+class StocksAdapter() : ListAdapter<StockItem, StocksAdapter.StockViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<StockItem>() {
         override fun areItemsTheSame(oldItem: StockItem, newItem: StockItem): Boolean {
@@ -44,10 +41,10 @@ class FavouriteAdapter() :
                 val stockRisePercent = abs(stockDelta) / stockItem.previousClose * 100
                 if (stockDelta < 0) {
                     currentPriceTv.text = "-$$stockDelta ($stockRisePercent%)"
-                    currentPriceTv.setTextColor(RED)
+                    currentPriceTv.setTextColor(Color.RED)
                 } else {
                     currentPriceTv.text = "+$$stockDelta ($stockRisePercent%)"
-                    currentPriceTv.setTextColor(GREEN)
+                    currentPriceTv.setTextColor(Color.GREEN)
                 }
             }
         }

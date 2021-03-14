@@ -1,18 +1,19 @@
-package com.example.android.stockshow.data.response
+package com.example.android.stockshow.data
 
 import com.example.android.stockshow.data.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object QuoteClientInstance {
 
-    var quoteApiClient: CompaniesClientInstance? = null
+    var quoteApiClient: QuoteClientInstance? = null
 
-    fun getClient(): CompaniesClientInstance? {
+    fun getClient(): QuoteClientInstance? {
         if (quoteApiClient == null) {
-            quoteApiClient = CompaniesClientInstance
+            quoteApiClient = QuoteClientInstance
         }
         return quoteApiClient
     }
@@ -41,6 +42,7 @@ object QuoteClientInstance {
                 .client(okHttpClient)
                 .baseUrl(IEX_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
             return retrofit.create(QuoteService::class.java)
         }

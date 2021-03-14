@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.stockshow.R
+import com.example.android.stockshow.databinding.StocksFragmentBinding
 
 class StocksFragment : Fragment() {
 
     private lateinit var viewModel: StocksViewModel
+    private lateinit var binding: StocksFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +24,18 @@ class StocksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(StocksViewModel::class.java)
+
+        viewModel.fetchStockItems()
+
+        binding = StocksFragmentBinding.bind(view)
+
+        binding.stocksRv.adapter = StocksAdapter()
+
+        val adapter = binding.stocksRv.adapter as StocksAdapter
+
+        viewModel.stockItems.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
 }
