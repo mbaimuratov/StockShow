@@ -33,8 +33,8 @@ class StocksFragment : Fragment() {
 
         val adapter = binding.stocksRv.adapter as StocksAdapter
 
-        viewModel.stockItems.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.stockItems.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.android.stockshow
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.stockshow.databinding.ActivityMainBinding
+import com.example.android.stockshow.ui.ScreenSlidePagerAdapter
 import com.example.android.stockshow.ui.favourite.FavouriteFragment
 import com.example.android.stockshow.ui.stocks.StocksFragment
 import com.google.android.material.tabs.TabLayoutMediator

@@ -1,7 +1,11 @@
 package com.example.android.stockshow.data.response
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "company_table")
 data class CompanyProfile(
-    val name: String,
+    @PrimaryKey val name: String,
     val logo: String,
     val ticker: String
 )

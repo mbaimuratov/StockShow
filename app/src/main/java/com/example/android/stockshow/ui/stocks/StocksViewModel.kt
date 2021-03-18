@@ -1,66 +1,62 @@
 package com.example.android.stockshow.ui.stocks
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.stockshow.data.CompaniesClientInstance
 import com.example.android.stockshow.data.QuoteClientInstance
+import com.example.android.stockshow.data.response.CompanyProfile
 import com.example.android.stockshow.data.response.StockItem
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
-
 
 class StocksViewModel : ViewModel() {
 
     private val companiesClient = CompaniesClientInstance.getClient()
     private val quoteClient = QuoteClientInstance.getClient()
+    private lateinit var companyList: List<CompanyProfile>
+    private var stockList = mutableListOf<StockItem>()
 
     private val disposeBag: CompositeDisposable = CompositeDisposable()
 
-    private var _stockItems: MutableLiveData<List<StockItem>> = MutableLiveData<List<StockItem>>()
-    val stockItems: LiveData<List<StockItem>>
-        get() = _stockItems
+    var stockItems: MutableLiveData<List<StockItem>> = MutableLiveData<List<StockItem>>()
 
     fun fetchStockItems() {
         val disposable = companiesClient?.retrofitCompaniesInstance?.getCompanies()
-            ?.takeUntil(Observable.timer(10, TimeUnit.SECONDS))
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe(
-                { companies ->
-                    val stockItemList = arrayListOf<StockItem>()
-                    for (company in companies) {
-                        Observable.interval(0, 10, TimeUnit.MILLISECONDS)
-                            .flatMap {
-                                quoteClient?.retrofitQuoteInstance?.getQuote(company.ticker)
-                            }
-                            ?.subscribeOn(Schedulers.io())
-                            ?.observeOn(AndroidSchedulers.mainThread())
-                            ?.subscribe({ result ->
-                                val stockItem = StockItem(
-                                    company.name,
-                                    company.logo,
-                                    company.ticker,
-                                    result.latestPrice,
-                                    result.previousClose
-                                )
-                                Log.i("fetchStockItems", result.toString())
-                                stockItemList.add(stockItem)
-                            },
-                                { throwable -> Log.i("fetchStockItems", throwable.message.toString()) }
-                            )
-                    }
-
-                    _stockItems.value = stockItemList
-                },
+            ?.subscribe({ companies ->
+                companyList = companies
+                extractQuotes()
+            },
                 { throwable -> Log.i("fetchStockItems", throwable.message.toString()) }
             )
-
         disposeBag.add(disposable!!)
+    }
+
+    private fun extractQuotes() {
+        for (company in companyList) {
+            val disposable = quoteClient?.retrofitQuoteInstance?.getQuote(company.ticker)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({quote ->
+                    val stockItem = StockItem(
+                        company.name,
+                        company.logo,
+                        company.ticker,
+                        quote.latestPrice,
+                        quote.previousClose
+                    )
+                    stockList.add(stockItem)
+                    stockItems.value = stockList
+                },
+                    {throwable ->
+                        Log.i(Log.getStackTraceString(throwable), throwable.message.toString())
+                    })
+            disposeBag.add(disposable!!)
+            Thread.sleep(10)
+        }
     }
 
     override fun onCleared() {

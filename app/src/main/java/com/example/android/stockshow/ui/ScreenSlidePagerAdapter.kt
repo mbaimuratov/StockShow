@@ -1,4 +1,4 @@
-package com.example.android.stockshow
+package com.example.android.stockshow.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
