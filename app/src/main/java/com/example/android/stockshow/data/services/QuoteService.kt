@@ -1,4 +1,4 @@
-package com.example.android.stockshow.data
+package com.example.android.stockshow.data.services
 
 import com.example.android.stockshow.data.response.Quote
 import io.reactivex.Observable

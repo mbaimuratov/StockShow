@@ -1,12 +1,14 @@
 package com.example.android.stockshow
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.stockshow.databinding.ActivityMainBinding
-import com.example.android.stockshow.ui.ScreenSlidePagerAdapter
-import com.example.android.stockshow.ui.favourite.FavouriteFragment
-import com.example.android.stockshow.ui.stocks.StocksFragment
+import com.example.android.stockshow.ui.adapters.ScreenSlidePagerAdapter
+import com.example.android.stockshow.ui.fragments.FavouriteFragment
+import com.example.android.stockshow.ui.fragments.StocksFragment
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (supportActionBar != null)
+            supportActionBar?.hide()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -28,5 +34,12 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = "Page ${(position + 1)}"
         }.attach()
+
+        binding.searchView.setOnClickListener {
+            binding.searchView.onActionViewExpanded()
+            binding.searchFragmentContainer.visibility = View.VISIBLE
+            binding.viewPager.visibility = View.GONE
+            binding.tabLayout.visibility = View.GONE
+        }
     }
 }

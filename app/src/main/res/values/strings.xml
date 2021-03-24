@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">StockShow</string>
+    <string name="search_hint">Find company or ticker</string>
+    <string name="app_label">StockShow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
