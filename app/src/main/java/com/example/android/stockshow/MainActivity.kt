@@ -1,8 +1,8 @@
 package com.example.android.stockshow
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.android.stockshow.databinding.ActivityMainBinding
 import com.example.android.stockshow.ui.adapters.ScreenSlidePagerAdapter
 import com.example.android.stockshow.ui.fragments.FavouriteFragment
@@ -17,14 +17,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (supportActionBar != null)
-            supportActionBar?.hide()
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        val fragmentList = arrayListOf(
+        val fragmentList = arrayListOf<Fragment>(
             StocksFragment(),
             FavouriteFragment()
         )
@@ -32,14 +31,11 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = ScreenSlidePagerAdapter(fragmentList, this)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = "Page ${(position + 1)}"
+            if (position == 0) {
+                tab.text = "Stocks"
+            } else if (position == 1) {
+                tab.text = "Favourite"
+            }
         }.attach()
-
-        binding.searchView.setOnClickListener {
-            binding.searchView.onActionViewExpanded()
-            binding.searchFragmentContainer.visibility = View.VISIBLE
-            binding.viewPager.visibility = View.GONE
-            binding.tabLayout.visibility = View.GONE
-        }
     }
 }

@@ -1,78 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:minHeight="88dp"
-    android:padding="8dp">
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="2dp"
+    app:cardElevation="0dp">
 
-    <ImageView
-        android:id="@+id/logo_iv"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_baseline_image_24" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="80dp"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/ticker_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/logo_iv"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="6dp"
-        android:layout_toEndOf="@+id/logo_iv"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:text="YNDX" />
+        <ImageView
+            android:id="@+id/logo_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_baseline_image_24" />
 
-    <ImageView
-        android:id="@+id/add_favourite_star_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/ticker_tv"
-        android:layout_marginStart="6dp"
-        android:layout_toEndOf="@id/ticker_tv"
-        android:src="@drawable/ic_baseline_grey_star_24"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/ticker_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/logo_iv"
+            app:layout_constraintTop_toTopOf="@id/logo_iv"
+            tools:text="YNDX" />
 
-    <TextView
-        android:id="@+id/company_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ticker_tv"
-        android:layout_alignStart="@+id/ticker_tv"
-        android:layout_toStartOf="@id/day_delta_tv"
-        android:layout_toEndOf="@+id/logo_iv"
-        android:fontFamily="sans-serif-medium"
-        android:maxLines="2"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        tools:text="Yandex, LLC" />
+        <ImageView
+            android:id="@+id/add_favourite_star_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:src="@drawable/ic_baseline_grey_star_24"
+            app:layout_constraintBottom_toBottomOf="@+id/ticker_tv"
+            app:layout_constraintStart_toEndOf="@id/ticker_tv"
+            app:layout_constraintTop_toTopOf="@id/ticker_tv"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/current_price_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="9sp"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        tools:text="4 764,6 ₽" />
+        <TextView
+            android:id="@+id/company_name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/day_delta_tv"
+            app:layout_constraintStart_toStartOf="@id/ticker_tv"
+            app:layout_constraintTop_toBottomOf="@id/ticker_tv"
+            tools:text="Yandex, LLC" />
 
-    <TextView
-        android:id="@+id/day_delta_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/current_price_tv"
-        android:layout_alignEnd="@id/current_price_tv"
-        android:textColor="#24B25D"
-        android:textSize="18sp"
-        tools:text="+55 ₽ (1,15%)" />
+        <TextView
+            android:id="@+id/current_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/ticker_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="4 764,6 ₽" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/day_delta_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="#24B25D"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/company_name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="+55 ₽ (1,15%)" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
+    <!--    <?xml version="1.0" encoding="utf-8"?>-->
+    <!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="2dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginBottom="2dp"-->
+    <!--app:cardElevation="0dp">-->
+
+    <!--<RelativeLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:background="?attr/selectableItemBackground"-->
+    <!--    android:minHeight="80dp"-->
+    <!--    android:padding="4dp">-->
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/logo_iv"-->
+    <!--        android:layout_width="60dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:layout_alignParentStart="true"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_marginStart="8dp"-->
+    <!--        tools:ignore="ContentDescription"-->
+    <!--        tools:src="@drawable/ic_baseline_image_24" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/ticker_tv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignTop="@id/logo_iv"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_toEndOf="@+id/logo_iv"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="24sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        tools:text="YNDX" />-->
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/add_favourite_star_iv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignTop="@id/ticker_tv"-->
+    <!--        android:layout_alignBottom="@+id/ticker_tv"-->
+    <!--        android:layout_marginStart="6dp"-->
+    <!--        android:layout_toEndOf="@id/ticker_tv"-->
+    <!--        android:src="@drawable/ic_baseline_grey_star_24"-->
+    <!--        tools:ignore="ContentDescription" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/company_name_tv"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_below="@+id/ticker_tv"-->
+    <!--            android:layout_alignStart="@+id/ticker_tv"-->
+    <!--            android:layout_toStartOf="@id/day_delta_tv"-->
+    <!--            android:layout_toEndOf="@+id/logo_iv"-->
+    <!--            android:fontFamily="sans-serif-medium"-->
+    <!--            android:maxLines="2"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:textSize="16sp"-->
+    <!--            tools:text="Yandex, LLC" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/current_price_tv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_marginTop="14dp"-->
+    <!--        android:layout_marginEnd="9sp"-->
+    <!--        android:maxLines="2"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="24sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        tools:text="4 764,6 ₽" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/day_delta_tv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/current_price_tv"-->
+    <!--        android:layout_alignEnd="@id/current_price_tv"-->
+    <!--        android:textColor="#24B25D"-->
+    <!--        android:textSize="16sp"-->
+    <!--        tools:text="+55 ₽ (1,15%)" />-->
+
+    <!--</RelativeLayout>-->
+
+    <!--</androidx.cardview.widget.CardView>-->

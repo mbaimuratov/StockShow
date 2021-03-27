@@ -5,6 +5,6 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 
 interface CompaniesService {
-    @GET("justadlet/testing-API/master/api/stockProfiles.json")
+    @GET("mbaimuratov/stockProfiles/main/stockProfiles.json")
     fun getCompanies(): Observable<List<CompanyProfile>>
 }

@@ -32,14 +32,12 @@ class StocksViewModel(private val repo: CompanyRepository) : ViewModel() {
         MutableLiveData<TreeMap<String, StockItem>>()
     private var companyList: List<CompanyProfile>? = repo.companyList
 
-
     private suspend fun fetchCompanies() = withContext(Dispatchers.IO) {
         val disposable = companiesClient?.retrofitCompaniesInstance?.getCompanies()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({ companies ->
                 companyList = companies
-
                 viewModelScope.launch {
                     createStocks()
                 }

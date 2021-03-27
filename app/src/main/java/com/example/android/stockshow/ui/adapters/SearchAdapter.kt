@@ -4,7 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -12,11 +13,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.android.stockshow.R
 import com.example.android.stockshow.data.response.StockItem
 import com.example.android.stockshow.databinding.StockItemBinding
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
-
-class StocksAdapter(private val listener: OnItemClickListener) :
-    RecyclerView.Adapter<StocksAdapter.StockViewHolder>() {
+class SearchAdapter(private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<SearchAdapter.StockViewHolder>(), Filterable {
 
     private var stockList = mutableListOf<StockItem>()
 
@@ -41,7 +43,8 @@ class StocksAdapter(private val listener: OnItemClickListener) :
                 Glide.with(binding.logoIv.context)
                     .load(stockItem.logo.trim())
                     .placeholder(R.drawable.ic_baseline_image_24)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(40)))
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(30)))
+                    .error(R.drawable.ic_baseline_image_24)
                     .into(binding.logoIv)
 
                 //calculate day delta and percent rise
@@ -49,7 +52,7 @@ class StocksAdapter(private val listener: OnItemClickListener) :
                 val stockRisePercent = abs(stockDelta) / stockItem.previousClose * 100
                 if (stockDelta < 0) {
                     dayDeltaTv.setTextColor(Color.RED)
-                    dayDeltaTv.text = "-$%.2f (%.2f".format(-stockDelta, stockRisePercent) + "%)"
+                    dayDeltaTv.text = "-$%.2f (%2f".format(-stockDelta, stockRisePercent) + "%)"
                 } else {
                     dayDeltaTv.text = "+$%.2f (%.2f".format(stockDelta, stockRisePercent) + "%)"
                     dayDeltaTv.setTextColor(Color.GREEN)
@@ -72,19 +75,43 @@ class StocksAdapter(private val listener: OnItemClickListener) :
 
                 addFavouriteStarIv.setOnClickListener {
                     listener.onStarClick(stockList[position])
+                    addFavouriteStarIv.setImageResource(R.drawable.ic_yellow_star)
                 }
             }
         }
     }
 
-    fun submitList(stockList: List<StockItem>) {
-        this.stockList = stockList as MutableList<StockItem>
-        this.stockListFull = ArrayList(this.stockList)
-        notifyDataSetChanged()
-    }
-
     interface OnItemClickListener {
         fun onStarClick(stockItem: StockItem)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                var filteredList = arrayListOf<StockItem>()
+                filteredList.addAll(stockListFull)
+                if (!constraint.isNullOrBlank()) {
+                    val filterPattern = constraint.toString().toUpperCase(Locale.ROOT).trim()
+
+                    filteredList = stockListFull.filter { stockItem ->
+                        stockItem.name.toUpperCase(Locale.ROOT).startsWith(filterPattern)
+                                || stockItem.ticker.startsWith(filterPattern)
+                    } as ArrayList<StockItem>
+                }
+
+                val result = FilterResults()
+                result.values = filteredList
+                return result
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults) {
+                if (results.values != null) {
+                    stockList.clear()
+                    stockList.addAll(results.values as List<StockItem>)
+                    notifyDataSetChanged()
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
@@ -101,13 +128,9 @@ class StocksAdapter(private val listener: OnItemClickListener) :
         return stockList.size
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<StockItem>() {
-        override fun areItemsTheSame(oldItem: StockItem, newItem: StockItem): Boolean {
-            return oldItem === newItem
-        }
-
-        override fun areContentsTheSame(oldItem: StockItem, newItem: StockItem): Boolean {
-            return oldItem.ticker == newItem.ticker
-        }
+    fun submitList(stockList: List<StockItem>) {
+        this.stockList = stockList as MutableList<StockItem>
+        this.stockListFull = ArrayList(this.stockList)
+        notifyDataSetChanged()
     }
 }

@@ -26,6 +26,6 @@ object CompaniesClientInstance {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-             return retrofit.create(CompaniesService::class.java)
+            return retrofit.create(CompaniesService::class.java)
         }
 }

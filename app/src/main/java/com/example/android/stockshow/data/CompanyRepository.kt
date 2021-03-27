@@ -33,7 +33,7 @@ private fun runOnBackground(submit: (ExecutorService) -> Unit) {
     try {
         submit.invoke(executor)
     } catch (e: IOException) {
-        e.printStackTrace() // don't eat exceptions in prod
+        e.printStackTrace()
     } finally {
         executor.shutdown()
     }

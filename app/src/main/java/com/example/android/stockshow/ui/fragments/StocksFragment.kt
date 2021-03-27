@@ -49,6 +49,7 @@ class StocksFragment : Fragment(R.layout.stocks_fragment), StocksAdapter.OnItemC
         val repo = app.repository
         val factory = StocksViewModelFactory(repo)
         viewModel = ViewModelProvider(this, factory).get(StocksViewModel::class.java)
+
     }
 
     override fun onStarClick(stockItem: StockItem) {

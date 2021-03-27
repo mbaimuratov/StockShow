@@ -10,7 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object QuoteClientInstance {
 
-    private const val API_KEY = "pk_ad3e6abcc13f404989b8f48aa19a310e"
+    //wait
+    private const val API_KEY = "pk_ca47ed93931143eab700834f6909223b"
 
     var quoteApiClient: QuoteClientInstance? = null
 
