@@ -5,10 +5,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val GITHUB_BASE_URL = "https://raw.githubusercontent.com/"
-const val IEX_BASE_URL = "https://cloud.iexapis.com/stable/"
-
 object CompaniesClientInstance {
+
+    private const val GITHUB_BASE_URL = "https://raw.githubusercontent.com/"
 
     var companiesApiClient: CompaniesClientInstance? = null
 

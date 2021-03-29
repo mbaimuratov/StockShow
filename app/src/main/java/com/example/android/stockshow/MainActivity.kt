@@ -2,40 +2,31 @@ package com.example.android.stockshow
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.example.android.stockshow.databinding.ActivityMainBinding
-import com.example.android.stockshow.ui.adapters.ScreenSlidePagerAdapter
-import com.example.android.stockshow.ui.fragments.FavouriteFragment
-import com.example.android.stockshow.ui.fragments.StocksFragment
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
-        val fragmentList = arrayListOf<Fragment>(
-            StocksFragment(),
-            FavouriteFragment()
-        )
+        navController = navHostFragment.findNavController()
 
-        binding.viewPager.adapter = ScreenSlidePagerAdapter(fragmentList, this)
+        setupActionBarWithNavController(navController)
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            if (position == 0) {
-                tab.text = "Stocks"
-            } else if (position == 1) {
-                tab.text = "Favourite"
-            }
-        }.attach()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

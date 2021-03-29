@@ -1,5 +1,9 @@
 package com.example.android.stockshow.data.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class StockItem(
     val name: String,
     val logo: String = "",
@@ -7,4 +11,4 @@ data class StockItem(
     val latestPrice: Double,
     val previousClose: Double,
     var isFavourite: Boolean
-)
+) : Parcelable

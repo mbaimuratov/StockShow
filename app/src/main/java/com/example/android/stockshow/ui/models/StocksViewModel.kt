@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android.stockshow.data.CompanyRepository
 import com.example.android.stockshow.data.clients.CompaniesClientInstance
 import com.example.android.stockshow.data.clients.QuoteClientInstance
+import com.example.android.stockshow.data.repos.CompanyRepository
 import com.example.android.stockshow.data.response.CompanyProfile
 import com.example.android.stockshow.data.response.StockItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -78,8 +78,6 @@ class StocksViewModel(private val repo: CompanyRepository) : ViewModel() {
                         false
                     )
 
-                    Log.i("createStocks", stockItem.toString())
-
                     map[company.ticker] = stockItem
                     stockMap.value = map
                 },
@@ -95,6 +93,8 @@ class StocksViewModel(private val repo: CompanyRepository) : ViewModel() {
             delay(10)
         }
     }
+
+
 
     override fun onCleared() {
         super.onCleared()

@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_baseline_image_24" />
+            tools:src="@drawable/ic_image" />
 
         <TextView
             android:id="@+id/ticker_tv"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:src="@drawable/ic_baseline_grey_star_24"
+            android:src="@drawable/ic_grey_star"
             app:layout_constraintBottom_toBottomOf="@+id/ticker_tv"
             app:layout_constraintStart_toEndOf="@id/ticker_tv"
             app:layout_constraintTop_toTopOf="@id/ticker_tv"

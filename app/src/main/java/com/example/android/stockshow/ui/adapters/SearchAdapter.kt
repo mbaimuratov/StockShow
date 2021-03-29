@@ -42,9 +42,9 @@ class SearchAdapter(private val listener: OnItemClickListener) :
                 //load logo
                 Glide.with(binding.logoIv.context)
                     .load(stockItem.logo.trim())
-                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .placeholder(R.drawable.ic_image)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(30)))
-                    .error(R.drawable.ic_baseline_image_24)
+                    .error(R.drawable.ic_image)
                     .into(binding.logoIv)
 
                 //calculate day delta and percent rise
@@ -70,12 +70,20 @@ class SearchAdapter(private val listener: OnItemClickListener) :
                 if (stockItem.isFavourite) {
                     addFavouriteStarIv.setImageResource(R.drawable.ic_yellow_star)
                 } else {
-                    addFavouriteStarIv.setImageResource(R.drawable.ic_baseline_grey_star_24)
+                    addFavouriteStarIv.setImageResource(R.drawable.ic_grey_star)
                 }
 
                 addFavouriteStarIv.setOnClickListener {
+                    if (stockItem.isFavourite) {
+                        addFavouriteStarIv.setImageResource(R.drawable.ic_grey_star)
+                    } else {
+                        addFavouriteStarIv.setImageResource(R.drawable.ic_yellow_star)
+                    }
                     listener.onStarClick(stockList[position])
-                    addFavouriteStarIv.setImageResource(R.drawable.ic_yellow_star)
+                }
+
+                binding.root.setOnClickListener {
+                    listener.onItemClick(stockItem)
                 }
             }
         }
@@ -83,6 +91,7 @@ class SearchAdapter(private val listener: OnItemClickListener) :
 
     interface OnItemClickListener {
         fun onStarClick(stockItem: StockItem)
+        fun onItemClick(stockItem: StockItem)
     }
 
     override fun getFilter(): Filter {

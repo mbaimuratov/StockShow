@@ -2,7 +2,7 @@ package com.example.android.stockshow.ui.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.stockshow.data.CompanyRepository
+import com.example.android.stockshow.data.repos.CompanyRepository
 import com.example.android.stockshow.ui.models.StocksViewModel
 
 class StocksViewModelFactory(

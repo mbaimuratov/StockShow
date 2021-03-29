@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.stockshow.App
 import com.example.android.stockshow.R
 import com.example.android.stockshow.data.response.StockItem
@@ -32,6 +33,7 @@ class StocksFragment : Fragment(R.layout.stocks_fragment), StocksAdapter.OnItemC
         initVm()
 
         viewModel.stockMap.observe(viewLifecycleOwner) { map ->
+            binding.progressBar.visibility = View.GONE
             sharedViewModel.setStockMap(map)
         }
 
@@ -54,5 +56,10 @@ class StocksFragment : Fragment(R.layout.stocks_fragment), StocksAdapter.OnItemC
 
     override fun onStarClick(stockItem: StockItem) {
         sharedViewModel.addOrRemoveFavourite(stockItem)
+    }
+
+    override fun onItemClick(stockItem: StockItem) {
+        val action = StartFragmentDirections.actionStartFragmentToDetailsFragment(stockItem)
+        findNavController().navigate(action)
     }
 }

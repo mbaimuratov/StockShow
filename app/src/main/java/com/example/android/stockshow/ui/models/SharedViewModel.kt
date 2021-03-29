@@ -28,9 +28,4 @@ class SharedViewModel : ViewModel() {
         setStockMap(map)
     }
 
-    fun addOrRemoveFavouriteFromSearch(stockItem: StockItem) {
-        val map = TreeMap(searchMap.value)
-        map[stockItem.ticker]?.isFavourite = !map[stockItem.ticker]?.isFavourite!!
-        setSearchMap(map)
-    }
 }

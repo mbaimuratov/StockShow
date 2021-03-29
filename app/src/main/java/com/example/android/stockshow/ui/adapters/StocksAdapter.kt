@@ -40,7 +40,7 @@ class StocksAdapter(private val listener: OnItemClickListener) :
                 //load logo
                 Glide.with(binding.logoIv.context)
                     .load(stockItem.logo.trim())
-                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .placeholder(R.drawable.ic_image)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(40)))
                     .into(binding.logoIv)
 
@@ -67,11 +67,15 @@ class StocksAdapter(private val listener: OnItemClickListener) :
                 if (stockItem.isFavourite) {
                     addFavouriteStarIv.setImageResource(R.drawable.ic_yellow_star)
                 } else {
-                    addFavouriteStarIv.setImageResource(R.drawable.ic_baseline_grey_star_24)
+                    addFavouriteStarIv.setImageResource(R.drawable.ic_grey_star)
                 }
 
                 addFavouriteStarIv.setOnClickListener {
                     listener.onStarClick(stockList[position])
+                }
+
+                binding.root.setOnClickListener {
+                    listener.onItemClick(stockItem)
                 }
             }
         }
@@ -85,6 +89,7 @@ class StocksAdapter(private val listener: OnItemClickListener) :
 
     interface OnItemClickListener {
         fun onStarClick(stockItem: StockItem)
+        fun onItemClick(stockItem: StockItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {

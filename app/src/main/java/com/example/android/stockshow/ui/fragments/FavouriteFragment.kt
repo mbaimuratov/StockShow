@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.android.stockshow.R
 import com.example.android.stockshow.data.response.StockItem
 import com.example.android.stockshow.databinding.FavouriteFragmentBinding
@@ -32,6 +33,11 @@ class FavouriteFragment : Fragment(R.layout.favourite_fragment), StocksAdapter.O
 
     override fun onStarClick(stockItem: StockItem) {
         sharedViewModel.addOrRemoveFavourite(stockItem)
+    }
+
+    override fun onItemClick(stockItem: StockItem) {
+        val action = StartFragmentDirections.actionStartFragmentToDetailsFragment(stockItem)
+        findNavController().navigate(action)
     }
 
 }

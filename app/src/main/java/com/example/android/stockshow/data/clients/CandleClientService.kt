@@ -1,26 +1,26 @@
 package com.example.android.stockshow.data.clients
 
-import com.example.android.stockshow.data.*
-import com.example.android.stockshow.data.services.QuoteService
+import com.example.android.stockshow.data.services.CandleService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object QuoteClientInstance {
+object CandleClientService {
 
-    private const val IEX_BASE_URL = "https://cloud.iexapis.com/stable/"
+    private const val FINNHUB_BASE_URL = "https://finnhub.io/api/v1/"
 
-    private const val API_KEY = "pk_f364bbcbf3644de2b182a579bed8776b"
+    //wait
+    private const val API_KEY = "c13qlcf48v6ue6hfjdp0"
 
-    var quoteApiClient: QuoteClientInstance? = null
+    var candleApiClient: CandleClientService? = null
 
-    fun getClient(): QuoteClientInstance? {
-        if (quoteApiClient == null) {
-            quoteApiClient = QuoteClientInstance
+    fun getClient(): CandleClientService? {
+        if (candleApiClient == null) {
+            candleApiClient = CandleClientService
         }
-        return quoteApiClient
+        return candleApiClient
     }
 
     private val requestInterceptor = Interceptor { chain ->
@@ -41,14 +41,14 @@ object QuoteClientInstance {
         .addInterceptor(requestInterceptor)
         .build()
 
-    val retrofitQuoteInstance: QuoteService
+    val retrofitQuoteInstance: CandleService
         get() {
             val retrofit = Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(IEX_BASE_URL)
+                .baseUrl(FINNHUB_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-            return retrofit.create(QuoteService::class.java)
+            return retrofit.create(CandleService::class.java)
         }
 }

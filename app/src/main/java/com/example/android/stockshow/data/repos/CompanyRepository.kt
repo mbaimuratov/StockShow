@@ -1,4 +1,4 @@
-package com.example.android.stockshow.data
+package com.example.android.stockshow.data.repos
 
 import com.example.android.stockshow.data.db.CompanyDao
 import com.example.android.stockshow.data.response.CompanyProfile
